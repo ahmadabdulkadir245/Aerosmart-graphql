@@ -1,5 +1,5 @@
 function Product({product}) {
-    console.log(`THIS ARE THE PRODUCTS RETRIEVED FROM THE END POINT ${product.title}`)
+
 
   return (
     <div>Product Title : {product?.title}
@@ -26,7 +26,7 @@ export const getSeverSideProps = async () => {
         page: 1
       }
     };
-   const result = await fetch(process.env.GRAPHQL_LOCAL_URL, {
+   const result = await fetch(process.env.GRAPHQL_URL, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
