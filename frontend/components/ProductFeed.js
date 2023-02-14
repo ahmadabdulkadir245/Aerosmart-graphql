@@ -1,9 +1,8 @@
-import {BANNERS} from '../db/banner-image'
 import Products from './Products'
-import { useEffect, useState } from 'react';
-
+import { useEffect, useState } from 'react'
 const ProductFeed = () => {
   const [products, setProducts] = useState([])
+  // console.log(URL)
   useEffect(() => {
     const graphqlQuery = {
       query: `
@@ -22,7 +21,7 @@ const ProductFeed = () => {
         page: 1
       }
     };
-   fetch('http://localhost:8080/graphql', {
+   fetch(process.env.GRAPHQL_URL, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -33,10 +32,10 @@ const ProductFeed = () => {
         return res.json();
       })
       .then(productData => {
-        setProducts(productData.data.products.products)
+        setProducts(productData.data?.products?.products)
       })
   }, [products])
-  
+
   
   // console.log(`THIS ARE THE PRODUCTS RETRIEVED FROM THE END POINT ${products}`)
   return (
@@ -62,7 +61,6 @@ const ProductFeed = () => {
 export default ProductFeed
 
 // export const getSeverSideProps = async () => {
-
 //   const graphqlQuery = {
 //     query: `
 //     {
@@ -80,15 +78,18 @@ export default ProductFeed
 //       page: 1
 //     }
 //   };
-//  const result = await fetch('http://localhost:4000/graphql', {
-//     method: 'POS',
-//     headers: {
-//       'Content-Type': 'application/json'
-//     },
-//     body: JSON.stringify(graphqlQuery)
-//   })
+//  const result = await  fetch(process.env.GRAPHQL_LOCAL_URL, {
+//   method: 'POST',
+//   headers: {
+//     'Content-Type': 'application/json'
+//   },
+//   body: JSON.stringify(graphqlQuery)
+// })
 //     .then(res => {  
 //       return res.json();
+//     })
+//     .then(productData => {
+//       return productData
 //     })
    
 //     const data = await result

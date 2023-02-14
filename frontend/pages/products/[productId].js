@@ -13,7 +13,6 @@ export default Product
 
 
 export const getSeverSideProps = async () => {
-
     const graphqlQuery = {
       query: `
       {
@@ -27,7 +26,7 @@ export const getSeverSideProps = async () => {
         page: 1
       }
     };
-   const result = await fetch('http://localhost:8080/graphql', {
+   const result = await fetch(process.env.GRAPHQL_LOCAL_URL, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

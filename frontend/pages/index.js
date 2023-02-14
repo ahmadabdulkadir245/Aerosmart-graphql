@@ -2,7 +2,6 @@ import Head from 'next/head'
 import Image from 'next/image'
 import Banner from '../components/Banner'
 import CategoryIcons from '../components/CategoryIcons'
-import Header from '../components/Header'
 import ProductFeed from '../components/ProductFeed'
 
 export default function Home() {

@@ -1,4 +1,3 @@
-import React from 'react'
 import { AiOutlineShop } from 'react-icons/ai'
 import { RiUser3Line } from 'react-icons/ri'
 import { CiShoppingCart } from 'react-icons/ci'

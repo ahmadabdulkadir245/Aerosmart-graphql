@@ -30,7 +30,7 @@ const AddProduct = () => {
 
   let graphqlQuery = {
     query: `
-    mutation CreateNewProduct($title: String!, $price: String!, $imageUrl: String!, description: $description) {
+    mutation CreateNewProduct($title: String!, $price: String!, $imageUrl: String!, description: String!) {
       createProduct(productInput: {title: $title, price: $price, imageUrl: $imageUrl, description: $description}) {
         title
         price
