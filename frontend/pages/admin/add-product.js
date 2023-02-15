@@ -2,7 +2,6 @@ import Head from "next/head"
 import { useState } from "react"
 
 const AddProduct = () => {
-  let URL = 'http://localhost:3001/admin/add-products'
   const [productData, setProductData] = useState({
     title: '',
     price: '',
@@ -11,22 +10,6 @@ const AddProduct = () => {
   })
 
   const addProductHandler = () => {
-    // let method = 'POST'
-  //   fetch('http://localhost:3001/product', {
-  //     method: 'POST',
-  //     headers:{'content-type': 'application/json'},
-  //     body: JSON.stringify({
-  //       title: product.title,
-  //       price: product.price,
-  //       imageUrl: product.imageUrl,
-  //       description: product.description
-  //     }),
-  //   })
-  //     .then(resData => {
-  //       resData.json()
-  // })
-  // .then(resData => console.log(`THIS IS THE PRODUCT SENT ${resData}`))
-  //   .catch(err => console.log(err))
 
   let graphqlQuery = {
     query: `
@@ -46,7 +29,7 @@ const AddProduct = () => {
       description: productData.description,
     }
   };
- fetch('http://localhost:8080/graphql', {
+ fetch('https://aerosmart-mysql-db.onrender.com/graphql', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
