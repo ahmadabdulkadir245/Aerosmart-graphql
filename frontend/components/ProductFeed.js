@@ -20,7 +20,7 @@ const ProductFeed = () => {
         page: 1
       }
     };
-   fetch(process.env.GRAPHQL_URL, {
+   fetch('https://aerosmart-mysql-db.onrender.com/graphql', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'

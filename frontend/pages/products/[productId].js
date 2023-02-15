@@ -12,35 +12,35 @@ function Product({product}) {
 export default Product
 
 
-export const getSeverSideProps = async () => {
-    const graphqlQuery = {
-      query: `
-      {
-        product(id: 1) {
-          title
-          price
-        }
-      }         
-      `,
-      variables: {
-        page: 1
-      }
-    };
-   const result = await fetch(process.env.GRAPHQL_URL, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(graphqlQuery)
-    })
-      .then(res => {  
-        return res.json();
-      })
+// export const getSeverSideProps = async () => {
+//     const graphqlQuery = {
+//       query: `
+//       {
+//         product(id: 1) {
+//           title
+//           price
+//         }
+//       }         
+//       `,
+//       variables: {
+//         page: 1
+//       }
+//     };
+//    const result = await fetch(process.env.GRAPHQL_URL, {
+//       method: 'POST',
+//       headers: {
+//         'Content-Type': 'application/json',
+//       },
+//       body: JSON.stringify(graphqlQuery)
+//     })
+//       .then(res => {  
+//         return res.json();
+//       })
      
-      const data = await result
-    return {
-      props: {
-        product: data.data.product
-      }
-    }
-  }
+//       const data = await result
+//     return {
+//       props: {
+//         product: data.data.product
+//       }
+//     }
+//   }
