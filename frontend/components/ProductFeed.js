@@ -2,7 +2,6 @@ import Products from './Products'
 import { useEffect, useState } from 'react'
 const ProductFeed = () => {
   const [products, setProducts] = useState([])
-  // console.log(URL)
   useEffect(() => {
     const graphqlQuery = {
       query: `
@@ -37,7 +36,6 @@ const ProductFeed = () => {
   }, [products])
 
   
-  // console.log(`THIS ARE THE PRODUCTS RETRIEVED FROM THE END POINT ${products}`)
   return (
     <div
     className='grid grid-cols-2 grid-flow-row-dense md:grid-cols-3 lg:grid-cols-3
@@ -59,44 +57,3 @@ const ProductFeed = () => {
 }
 
 export default ProductFeed
-
-// export const getSeverSideProps = async () => {
-//   const graphqlQuery = {
-//     query: `
-//     {
-//       products(page: 1) {
-//         products{
-//           title
-//           price
-//           imageUrl
-//           description
-//         }
-//       }
-//     }
-//     `,
-//     variables: {
-//       page: 1
-//     }
-//   };
-//  const result = await  fetch(process.env.GRAPHQL_LOCAL_URL, {
-//   method: 'POST',
-//   headers: {
-//     'Content-Type': 'application/json'
-//   },
-//   body: JSON.stringify(graphqlQuery)
-// })
-//     .then(res => {  
-//       return res.json();
-//     })
-//     .then(productData => {
-//       return productData
-//     })
-   
-//     const data = await result
-
-//   return {
-//     props: {
-//       products: data.data.products.products
-//     }
-//   }
-// }
