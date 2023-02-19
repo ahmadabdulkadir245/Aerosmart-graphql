@@ -31,7 +31,9 @@ const ProductFeed = () => {
         return res.json();
       })
       .then(productData => {
-        setProducts(productData.data?.products?.products)
+        const recievedData = productData.data?.products?.products
+        recievedData.reverse()
+        setProducts(recievedData)
       })
   }, [products])
 
