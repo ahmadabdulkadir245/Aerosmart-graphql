@@ -5,15 +5,17 @@ const AddProduct = () => {
   const [productData, setProductData] = useState({
     title: '',
     price: '',
+    quantity: '',
     imageUrl: '',
     description: ''
   })
-
-  const addProductHandler = () => {
+  const [success, setSuccess] = useState(false)
+  const addProductHandler = (e) => {
+    e.preventDefault()
 
   let graphqlQuery = {
     query: `
-    mutation CreateNewProduct($title: String!, $price: String!, $imageUrl: String!, description: String!) {
+    mutation CreateProduct($title: String!, $price: Int!, $imageUrl: String!, $description: String!) {
       createProduct(productInput: {title: $title, price: $price, imageUrl: $imageUrl, description: $description}) {
         title
         price
@@ -24,12 +26,13 @@ const AddProduct = () => {
   `,
     variables: {
       title: productData.title,
-      price: productData.price,
+      price:Number(productData.price),
       imageUrl: productData.imageUrl,
       description: productData.description,
     }
   };
- fetch('https://aerosmart-mysql-db.onrender.com/graphql', {
+
+ fetch('http://localhost:8000/graphql', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
@@ -39,18 +42,36 @@ const AddProduct = () => {
     .then(res => {  
       return res.json();
     })
-    .then(resDate => {
-      const products = {
-        // id: resData.data.product._id,
-        title: resData.data.product.title,
-        price: resData.data.product.price,
-        imageUrl: resData.data.product.imageUrl,
-        description: resData.data.product.description,
-      };
+    .then(result => {
+      setProductData({
+        title: "",
+        price: "",
+        quantity: "",
+        imageUrl: "",
+        description: ""
+      })
+
+      setTimeout(() => {
+        setSuccess(true)
+      }, 1000);
+      setTimeout(() => {
+        setSuccess(false)
+      }, 8000);
     })
-    return {
-      products: products,
-    }
+
+    // .then(resData => {
+    //   console.log(resData)
+    //   const products = {
+    //     title: resData.data.createProduct.title,
+    //     price: resData.data.createProduct.price,
+    //     imageUrl: resData.data.createProduct.imageUrl,
+    //     description: resData.data.createProduct.description,
+    //   };
+    //   return {
+    //     products: products,
+    //   }
+    // })
+    .catch(err => console.log(err))
 }
 
   
@@ -65,7 +86,7 @@ const AddProduct = () => {
       });
     };
 
-    // console.log(product)
+    // console.log(productData)
 
   return (
     <div classname="mt-20">
@@ -79,18 +100,22 @@ const AddProduct = () => {
 
       </Head>
 
+
     <form  >
       <h2 className="text-center text-xl uppercase text-gray-500  my-5 [word-spacing: 10px] ">
         {isUpdate ? 'add product' : 'update product'}
         <div className="w-[120px] h-[1px] bg-yellow-500 m-auto"></div>
       </h2>
+      {success &&
+          <p className="text-center text-xl text-green-400 mt-2 transition-all duration-300 ease-out">product add successfully </p>
+      }
           <input
         type='text'
         className='border-[1px] text-gray-500 lg:border-[1px] rounded-lg md:rounded-full  border-gray-600 outline-none px-6 py-3 w-[90%]  m-auto flex my-6 lg:my-8'
         placeholder='product name'
         required
         name="title"
-        // value={name}
+        value={productData.title}
         onChange={productInputHandler.bind(this, 'title')}
       />
       <div className="flex">
@@ -100,7 +125,7 @@ const AddProduct = () => {
         placeholder='price'
         name="price"
         required
-        // value={age}
+        value={productData.price}
         onChange={productInputHandler.bind(this, 'price')}
       />
       <input
@@ -120,12 +145,13 @@ const AddProduct = () => {
         placeholder='image url'
         name="imageUrl"
         required
-        // value={name}
+        value={productData.imageUrl}
         onChange={productInputHandler.bind(this, 'imageUrl')}
       />
 
     <textarea cols={1} rows={8}  className="text-gray-500 border-[1px] lg:border-[1px] rounded-lg md:rounded-full  border-gray-600 outline-none px-6 py-3 w-[90%]  m-auto flex my-6 lg:my-8" placeholder="description" name="description"
         onChange={productInputHandler.bind(this, 'description')}
+        value={productData.description}
     ></textarea>
       {isUpdate ? (
         <button
